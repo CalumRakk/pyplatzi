@@ -83,9 +83,10 @@ def get_my_courses(
             return
 
         if output:
-            output.parent.mkdir(parents=True, exist_ok=True)
-            if output.suffix=="":                output = output / f"{output.name}.json"
+            if output.suffix=="":                
+                output = output / f"{output.name}.json"
                 
+            output.parent.mkdir(parents=True, exist_ok=True)
             output.write_text(data.model_dump_json(indent=4), encoding="utf-8")
             console.print(f"[bold green]✔[/bold green] Se han exportado {len(data.courses)} cursos a: [cyan]{output}[/cyan]")
         else:
