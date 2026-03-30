@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 
 from pyplatzi.constants import BASE_API_URL, HEADERS
-from pyplatzi.schemas import MiRuta, Response
+from pyplatzi.schemas import MyCourses, Response
 from pyplatzi.utils import get_access
 
 logger= logging.getLogger(__name__)
@@ -31,6 +31,9 @@ class PlatziClient:
         }
 
         url= f"{BASE_API_URL}/profile/v1/courses/"
+
+        logger.debug(f"Petición API: Página {page}")
+
         response = self.session.get(url, params=params)
 
         response.raise_for_status()
@@ -41,20 +44,25 @@ class PlatziClient:
         
         return  Response(**data)
 
-    def get_miruta(self)->MiRuta:
-
+    def get_all_approved_courses(self)->MyCourses:
+        
         all_courses= []
         current_page= 1
 
         initial_data= self.fetch_courses_pages(page=current_page)
-        if initial_data is None:
-            return MiRuta(approved_courses=0, courses=[])
         
+        if initial_data is None:
+            return MyCourses(approved_courses=0, courses=[])
+        
+        logger.info(f"Iniciando descarga de cursos. Total páginas estimadas: {initial_data.metadata.pages}")
+
         all_courses.extend(initial_data.data.courses)
         total_pages = initial_data.metadata.pages
-
+        approved_courses = initial_data.data.approved_courses
         while current_page <= total_pages:
             current_page += 1
+
+            logger.info(f"Procesada página {current_page}/{total_pages} ({len(all_courses)} cursos acumulados)")
 
             data= self.fetch_courses_pages(page=current_page)
             if data is None:
@@ -63,6 +71,9 @@ class PlatziClient:
 
             all_courses.extend(data.data.courses)
 
-            time.sleep(random.randint(1, 3))
+            wait_time = random.randint(1, 3)
+            logger.debug(f"Esperando {wait_time}s para evitar rate-limit...")
+            time.sleep(wait_time)
 
-        return MiRuta(approved_courses=initial_data.data.approved_courses, courses=all_courses)
+        logger.info(f"Carga finalizada: {len(all_courses)} cursos obtenidos.")
+        return MyCourses(approved_courses=approved_courses, courses=all_courses)

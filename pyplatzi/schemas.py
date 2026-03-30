@@ -42,6 +42,6 @@ class Response(BaseModel):
     metadata: Metadata
 
 
-class MiRuta(BaseModel):
+class MyCourses(BaseModel):
     approved_courses: int
     courses: list[Course]

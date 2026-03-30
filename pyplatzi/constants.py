@@ -1,6 +1,7 @@
 
 
 BASE_API_URL = 'https://api.platzi.com'
+
 HEADERS = {
     'accept': '*/*',
     'accept-language': 'es,es-ES;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,es-CO;q=0.5',
