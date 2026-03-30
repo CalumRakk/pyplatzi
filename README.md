@@ -12,7 +12,7 @@ pip install git+https://github.com/CalumRakk/pyplatzi
 
 Para que `pyplatzi` pueda consultar tus datos privados, necesitas proporcionar tus cookies de sesión. Sigue estos pasos para obtenerlas correctamente:
 
-1. **Instala la extensión**: En tu navegador (Chrome o Edge), instala la extensión [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/ccmclabjdofocmhbpdhifnbnadhpifno). 
+1. **Instala la extensión**: En tu navegador (Chrome o Edge), instala la extensión [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc). 
    * *Nota: Asegúrate de usar esta versión "LOCALLY" por seguridad, ya que no envía tus datos a servidores externos.*
 2. **Inicia sesión**: Ve a [platzi.com](https://platzi.com) e inicia sesión con tu cuenta de forma normal.
 3. **Exporta las cookies**:
