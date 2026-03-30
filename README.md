@@ -4,8 +4,6 @@ Una pequeña herramienta y librería en Python para interactuar con la API de Pl
 
 ## Instalación
 
-Puedes instalarlo localmente clonando el repositorio y ejecutando:
-
 ```bash
 pip install git+https://github.com/CalumRakk/pyplatzi
 ```
