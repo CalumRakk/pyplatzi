@@ -1,5 +1,7 @@
 from setuptools import find_packages, setup
 
+from pyplatzi import __version__
+
 try:
     with open("README.md", "r", encoding="utf-8") as f:
         long_description = f.read()
@@ -8,7 +10,7 @@ except FileNotFoundError:
 
 setup(
     name="pyplatzi",
-    version="0.1.0",
+    version=__version__,
     author="CalumRakk",
     author_email="leocasti2@gmail.com",
     description="Herramienta CLI y librería para obtener cursos de Platzi",

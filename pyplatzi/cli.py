@@ -7,7 +7,7 @@ from rich.console import Console
 from rich.logging import RichHandler
 from rich.table import Table
 
-from pyplatzi import PlatziClient
+from pyplatzi import PlatziClient, __version__
 
 logging.basicConfig(
     level="INFO",
@@ -20,12 +20,26 @@ logger = logging.getLogger("pyplatzi")
 
 app = typer.Typer(
     help="CLI para interactuar con la API de Platzi",
-    no_args_is_help=True
+    no_args_is_help=True,
+    add_completion=False
 )
 console = Console()
 
+def version_callback(value: bool):
+    if value:
+        console.print(f"[bold cyan]pyplatzi v{__version__}[/bold cyan]")
+        raise typer.Exit()
+
+
 @app.callback()
-def main():
+def main(version: Optional[bool] = typer.Option(
+        None,
+        "--version",
+        "-V",
+        callback=version_callback,
+        is_eager=True,
+        help="Muestra la versión de la aplicación.",
+    ),):
     """
     Herramienta CLI para interactuar con la API de Platzi.
     Usa los subcomandos disponibles para realizar acciones.
@@ -63,6 +77,8 @@ def get_my_courses(
 
         if output:
             output.parent.mkdir(parents=True, exist_ok=True)
+            if output.suffix=="":                output = output / f"{output.name}.json"
+                
             output.write_text(data.model_dump_json(indent=4), encoding="utf-8")
             console.print(f"[bold green]✔[/bold green] Se han exportado {len(data.courses)} cursos a: [cyan]{output}[/cyan]")
         else:
