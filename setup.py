@@ -1,7 +1,12 @@
 from setuptools import find_packages, setup
 
-from pyplatzi import __version__
 
+def get_version():
+    with open("pyplatzi/__init__.py") as f:
+        for line in f:
+            if line.startswith("__version__"):
+                return line.split("=")[1].strip().strip('"')
+            
 try:
     with open("README.md", "r", encoding="utf-8") as f:
         long_description = f.read()
@@ -10,7 +15,7 @@ except FileNotFoundError:
 
 setup(
     name="pyplatzi",
-    version=__version__,
+    version=get_version(),
     author="CalumRakk",
     author_email="leocasti2@gmail.com",
     description="Herramienta CLI y librería para obtener cursos de Platzi",
@@ -25,15 +30,13 @@ setup(
     ],
     python_requires=">=3.10",
     install_requires=[
-        "requests>=2.31.0",
-        "pydantic>=2.0.0",
-        "typer[all]>=0.9.0",
-        "rich>=13.0.0",
+        "requests>=2.33.0",
+        "pydantic>=2.12.5",
+        "typer>=0.24.1"
     ],
     entry_points={
         "console_scripts": [
             "pyplatzi=pyplatzi.cli:run_script",
         ],
-    },
-    include_package_data=True,
+    }
 )

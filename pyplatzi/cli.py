@@ -11,9 +11,16 @@ from pyplatzi import PlatziClient, __version__
 
 logging.basicConfig(
     level="INFO",
-    format="%(message)s",
+    format="%(message)s", 
     datefmt="[%X]",
-    handlers=[RichHandler(rich_tracebacks=True, show_path=True)]
+    handlers=[
+        RichHandler(
+            rich_tracebacks=True, 
+            show_path=False,    
+            show_time=True,     
+            markup=True
+        )
+    ]
 )
 
 logger = logging.getLogger("pyplatzi")

@@ -1,5 +1,6 @@
-from .client import PlatziClient
 
-__version__ = "0.2.0"
+__version__ = "0.3.1"
+
+from pyplatzi.client import PlatziClient
 
 __all__ = ["PlatziClient"]
